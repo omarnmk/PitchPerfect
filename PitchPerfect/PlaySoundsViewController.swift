@@ -34,6 +34,7 @@ class PlaySoundsViewController: UIViewController {
         super.viewDidLoad()
         
         setupAudio()
+        setTheme(themeStyle)
         setContentModeForButtons()
     }
     
