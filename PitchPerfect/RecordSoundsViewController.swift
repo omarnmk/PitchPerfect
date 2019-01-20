@@ -20,6 +20,20 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        addButtons()
+        setTheme(themeStyle)
+    }
+    
+    @objc private func switchTheme(_ sender: Any) {
+        // TODO: - Use `setThemeStyle` function to update the style in each one of the conditions accordingly
+        if themeStyle == .dark {
+            UserDefaults.standard.setThemeStyle(.light)
+            navigationItem.rightBarButtonItem?.image = UIImage.sunIcon
+        } else if themeStyle == .light {
+            UserDefaults.standard.setThemeStyle(.dark)
+            navigationItem.rightBarButtonItem?.image = UIImage.moonIcon
+        }
+        setTheme(themeStyle)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,5 +116,17 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         startRecordingButton.isEnabled = !isRecording
         stopRecordingButton.isEnabled = isRecording
     }
+    
+    
+    private func addButtons() {
+        var buttonImage: UIImage!
+        if themeStyle == .dark {
+            buttonImage = UIImage.moonIcon
+        } else {
+            buttonImage = UIImage.sunIcon
+        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(self.switchTheme(_:)))
+    }
+    
     
 }
